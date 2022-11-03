@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blue0x NFT Marketplace">
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Blue0x NFT Marketplace</title>
+  <style>
+    span a {
+      color: cornflowerblue;
+      cursor: pointer;
+    }
+    #pendingBtn {
+      cursor: default;
+    }
+    #pendingBtn:hover {
+      box-shadow: none;
+    }
+    #pendingSaleHeading {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-nav-left">
+        <div class="navbar-brand">
+          <img src="img/blue0x.png" alt="Blue0x logo" />
+          <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+        </div>
+      </div>
+
+      <div class="navbar-nav-right">
+        <div class="navbar-search-bar">
+          <span class="material-icons md-24">search</span>
+          <input
+          class="search-bar"
+          type="text"
+          placeholder=" Search items,collections,and accounts"
+          />
+        </div>
+        <div class="navbar-items" id="menu">
+          <div class="navbar-search-bar-hidden menuItem">
+            <span class="material-icons md-24">search</span>
+            <input
+            class="search-bar"
+            type="text"
+            placeholder=" Search items,collections,and accounts"
+            />
+          </div>
+          <ul>
+              <li>
+                <a class="menuItem" href="explore.html">Explore</a>
+              </li>
+              <li>
+                <a class="menuItem" href="create.html">Create</a>
+              </li>
+              <li>
+                <a class="menuItem" href="resources.html">Resources</a>
+              </li>
+              <li>
+                <a class="menuItem" href="faq.html">FAQ</a>
+              </li>
+              <li>
+                <a class="menuItem" href="profile.html"><span class="material-icons-outlined nav-icon">account_circle
+                </span><span class="profile">Profile</span></a>
+              </li>
+              <li>
+                <a class="menuItem" href="wallet_login.html"><span class="material-icons-outlined nav-icon">account_balance_wallet
+                </span><button class="wallet">View Wallet</button></a>
+              </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Hamburger Menu -->
+    <button type="button" class="hamburger">
+      <i class="menuIcon material-icons nav-icon" id="hamburger">menu</i>
+      <i class="closeIcon material-icons nav-icon" id="close">close</i>
+    </button>
+  </nav>
+
+  <section class="pages">
+    <div class="page-heading">
+      <h1 id="nft-name">Processing...</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="asset-content">
+     <div id="asset-card"></div>
+     <div class="asset-info-card">
+       <h4><b>Owned by :</b><br/> <span id="owner">Processing...</span></h4>
+       <h4><b>Description :</b><br/> <span id="description">Processing...</span></h4>
+       <h4><b>BLX Asset ID :</b><br/> <span id="asset">Processing..</span></h4>
+       <h4><b>Asking Price :</b><br/> <span id="price">Not for Sale - <a onclick="listItem()">List Item</a></span></h4>
+
+       <div class="asset-btn-container">
+         <button class="btn btn-dark" id="buyBtn" style="display:none" onclick="buy()">Buy Now</button>
+         <button class="btn btn-dark" id="pendingBtn" style="display:none">Pending Sale</button>
+         <button class="btn btn-dark" id="defaultBtn">Not For Sale</button>
+         <button class="btn btn-light" onclick="bid()">Make Offer</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="history-content">
+   <div class="history-card">
+    <h3 id="pendingSaleHeading" style="display:none"> &#10004; Item Pending Sale</h3>
+    <h3>Active Bids</h3>
+    <table class="table" id="bids">
+     <thead>
+      <tr>
+        <th>Bid Price</th>
+        <th>Bid Account</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="bids-body">
+      <tr>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+      </tr>
+    </tbody>
+    </table>
+    <br/>
+    <h3>Asset Transfers</h3>
+    <table class="table" id="bids">
+     <thead>
+      <tr>
+        <th>Date</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+    </thead>
+    <tbody id="transfer-body">
+      <tr>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+      </tr>
+    </tbody>
+    </table>
+    <br/>
+    <h3>Asset Creation</h3>
+    <table class="table" id="table">
+     <thead>
+      <tr>
+        <th>Date</th>
+        <th>Creator</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <tr>
+        <td>None</td>
+        <td>None</td>
+      </tr>
+    </tbody>
+    </table>  
+</div>
+</div>
+</section>
+
+<footer class="margin-bottom"></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="./scripts.js"></script>
+<script src="./constants.js"></script>
+<script>
+ const queryString = window.location.search
+ const urlParams = new URLSearchParams(queryString)
+ const asset = urlParams.get('asset')
+ document.getElementById("asset").innerHTML = asset
+ $.getJSON(Constants.apiUrl, {
+  requestType: 'getAsset',
+  asset: asset,
+  includeCounts: true
+},
+function(result) {
+  var imgDiv = ""
+  const metadata = result.description
+  const metaUrl = metadata.replace("ipfs://", "https://nftstorage.link/ipfs/")
+  $.getJSON(metaUrl,
+   function(getMeta) {
+    const description = getMeta.description
+    document.getElementById("description").innerHTML = description
+    const image = getMeta.image
+    const imageUrl = image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+    const name = getMeta.name
+    document.getElementById("nft-name").innerHTML = name
+    imgDiv += "<div class='asset-card'>"
+    imgDiv += "<img src='" + imageUrl + "'>"
+    imgDiv += "</div>"
+    document.getElementById('asset-card').innerHTML = imgDiv
+  })})
+</script>
+<script>
+ $.getJSON(Constants.apiUrl, {
+  requestType: 'getAssetAccounts',
+  asset: asset
+},
+function(result) {
+  const owner = result.accountAssets[0].accountRS
+  document.getElementById('owner').innerHTML = '<a href="./user_profile.html?account=' + owner + '">' + owner + '</a>'
+  $.getJSON(Constants.listAPI + '/' + asset, function(data) {
+    if (owner === data.account) {
+      document.getElementById('defaultBtn').style.display = "none"
+      document.getElementById('buyBtn').style.display = "block"
+      const price = data.price
+      const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+      const currency = data.currency
+      document.getElementById('price').innerHTML = priceF + ' ' + currency + '<a id="priceEdit" onclick=listItem()> - Edit Price</a>'
+}})})
+</script>
+<script>
+  setTimeout(function () {
+  $.getJSON(Constants.bidsAPI, function(data) {
+    const owner = document.getElementById('owner').innerText
+    var rows
+    $.each(data, function(key, value) {
+      if (value.a == asset && value.t == 'activeBid' && value.from != owner) {
+        const asset = value.a
+        const bidder = value.from
+        const price = parseFloat(value.p).toFixed(2)
+        const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        const currency = value.c
+        rows += '<tr>'
+        rows += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows += '<td><a href="./user_profile.html?account=' + bidder + '">' + bidder + '</a></td>'
+        rows += '<td><a href="./acceptBid.html?asset=' + asset + '&bid=' + key + '">Accept</a></td>'
+        rows += '</tr>'
+        $("#bids-body").html(rows)
+}})})},600)
+</script>
+<script>
+ $.getJSON(Constants.apiUrl, {
+  requestType: 'getAssetTransfers',
+  asset: asset
+},
+function(result) {
+  const transfers = result.transfers
+  for (let i = 0; i < transfers.length; i++) {
+  const timestamp = parseInt(transfers[i].timestamp)
+  const blxTimestamp = parseInt(Constants.blxTimestamp)
+  const assetTime = blxTimestamp + timestamp
+  const date = new Date(assetTime * 1000);
+  const tx = transfers[i].assetTransfer
+  const sender = transfers[i].senderRS
+  const rec = transfers[i].recipientRS
+  var rows;
+  rows += '<tr>'
+  rows += '<td>' + date.toLocaleDateString() + '</td>'
+  rows += '<td><a href="./user_profile.html?account=' + sender + '">' + sender + '</a></td>'
+  rows += '<td><a href="./user_profile.html?account=' + rec + '">' + rec + '</a></td>'
+  rows += '</tr>'
+  $("#transfer-body").html(rows)
+}})
+</script>
+<script>
+ $.getJSON(Constants.apiUrl, {
+  requestType: 'getAssetHistory',
+  asset: asset
+},
+function(result) {
+  const transaction = result.assetHistory[0]
+  const timestamp = parseInt(transaction.timestamp)
+  const blxTimestamp = parseInt(Constants.blxTimestamp)
+  const assetTime = blxTimestamp + timestamp
+  const date = new Date(assetTime * 1000);
+  const attachment = transaction.attachment
+  const amount = transaction.quantityQNT
+  const creator = transaction.accountRS
+  var rows;
+  rows += '<tr>'
+  rows += '<td>' + date.toLocaleDateString() + '</td>'
+  rows += '<td><a href="./user_profile.html?account=' + creator + '">' + creator + '</a></td>'
+  rows += '</tr>'
+  $("#table-body").html(rows)
+})
+</script>
+<script>
+  function buy() {
+    window.location.href = "./buyNow.html?asset=" + asset
+  }
+</script>
+<script>
+  function listItem() {
+    window.location.href = "./listItem.html?asset=" + asset
+    }
+</script>
+<script>
+  function bid() {
+    window.location.href = "./bid.html?asset=" + asset
+    }
+</script>
+<script>
+  setTimeout(function () {
+  $.getJSON(Constants.bidsAPI, function(data) {
+    $.each(data, function(key, value) {
+      if (value.a === asset && value.t === 'pendingBuyNow' || value.t === "releasedBuyNow") {
+        document.getElementById('buyBtn').style.display = "none"
+        document.getElementById('priceEdit').style.display = "none"
+        document.getElementById('pendingBtn').style.display = "block"
+        document.getElementById('pendingSaleHeading').style.display = "flex"
+
+}})})},600)
+</script>
+</body>
+</html>

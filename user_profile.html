@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+    <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="Blue0x NFT Marketplace">
+     <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blue0x NFT Marketplace</title>
+  </head>
+  <body onload="showCollected();">
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-nav-left">
+          <div class="navbar-brand">
+            <img src="img/blue0x.png" alt="Blue0x logo" />
+            <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+          </div>
+        </div>
+
+        <div class="navbar-nav-right">
+          <div class="navbar-search-bar">
+            <span class="material-icons md-24">search</span>
+            <input
+              class="search-bar"
+              type="text"
+              placeholder=" Search items,collections,and accounts"
+            />
+          </div>
+          <div class="navbar-items" id="menu">
+            <div class="navbar-search-bar-hidden menuItem">
+              <span class="material-icons md-24">search</span>
+              <input
+                class="search-bar"
+                type="text"
+                placeholder=" Search items,collections,and accounts"
+              />
+            </div>
+            <ul>
+              <li>
+                <a class="menuItem" href="explore.html">Explore</a>
+              </li>
+              <li>
+                <a class="menuItem" href="create.html">Create</a>
+              </li>
+              <li>
+                <a class="menuItem" href="resources.html">Resources</a>
+              </li>
+              <li>
+                <a class="menuItem" href="faq.html">FAQ</a>
+              </li>
+              <li>
+                <a class="menuItem" href="profile.html"><span class="material-icons-outlined nav-icon">account_circle
+                </span><span class="profile">Profile</span></a>
+              </li>
+              <li>
+                <a class="menuItem" href="wallet_login.html"><span class="material-icons-outlined nav-icon">account_balance_wallet
+                </span><button class="wallet">View Wallet</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Hamburger Menu -->
+      <button type="button" class="hamburger">
+        <i class="menuIcon material-icons nav-icon" id="hamburger">menu</i>
+        <i class="closeIcon material-icons nav-icon" id="close">close</i>
+      </button>
+    </nav>
+
+    <section class="profile-centered">
+      <div class="header-container" id="banner">
+        <img id="default" src="./img/banner.png">
+      </div>
+      <div class="profile-info">
+        <span id="profile">
+          <img src="./img/profile-pic.png">
+        </span>
+        <h2 class="name" id="name"></h2>
+        <p class="account" id="account"></p>
+        <p class="description" id="description"></p>
+        <ul class="nav-user">
+          <li id="collected" onclick="showCollected()">Collected</li>
+          <li id="created" onclick="showCreated()">Created</li>
+        </ul>
+      </div>
+    </section>
+    <section class="browse-content" id="nft-collected">
+      <div class='nft-card-none' id="none"><h4>User has not collected any items.</h4></div>
+    </section>
+    <section class="browse-content" id="nft-created">
+      <div class='nft-card-none' id="none"><h4>User has not created any items.</h4></div>
+    </section>
+  
+<footer class="margin-bottom"></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="./scripts.js"></script>
+<script src="./constants.js"></script>
+<script>
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  const account = urlParams.get('account')
+  document.getElementById("account").innerHTML = account
+  $.getJSON(Constants.profileAPI + '/' + account, function(data) {
+    document.getElementById('banner').innerHTML = '<img src="' + data.banner + '">'
+    document.getElementById('profile').innerHTML = '<img src="' + data.profile + '">'
+    document.getElementById('name').innerText = data.name
+    document.getElementById('description').innerText = data.description
+  })
+</script>
+<script>
+function showCollected() {
+  document.getElementById("collected").style = "border-bottom:2px solid #999";
+  document.getElementById("created").style = "border-bottom:none";
+  document.getElementById('nft-created').style.display = "none"
+  document.getElementById('nft-collected').style.display = "flex"
+	const queryString = window.location.search
+	const urlParams = new URLSearchParams(queryString)
+	const account = urlParams.get('account')
+	$.getJSON(Constants.apiUrl, {
+		requestType: 'getAccountAssets',
+		account: account,
+		includeAssetInfo: true
+	},
+	function(result) {
+		const accountAssets = result.accountAssets
+    var imgDiv = ""
+    if (accountAssets.length !== 0) {
+    for (var i = 0; i < accountAssets.length; i++) {
+      const asset = accountAssets[i].asset
+        $.getJSON(Constants.apiUrl, {
+          requestType: "getAsset",
+          asset: asset
+        },
+          function(assets) {
+            const metadata = assets.description
+            const metaUrl = metadata.replace("ipfs://", "https://nftstorage.link/ipfs/")
+            $.getJSON(metaUrl,
+              function(getMeta) {
+                const description = getMeta.description
+                const image = getMeta.image
+                const imageUrl = image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+                const name = getMeta.name
+                imgDiv += "<div class='nft-card'>"
+                imgDiv += "<a href=asset.html?asset=" + asset + "><img src='" + imageUrl + "'>"
+                imgDiv += "<h4>" + name + "</h4></a>"
+                imgDiv += "</div>"
+                document.getElementById('nft-collected').innerHTML = imgDiv
+})})}}})}
+</script>
+<script>
+  function showCreated() {
+    document.getElementById("collected").style = "border-bottom:none";
+    document.getElementById("created").style = "border-bottom:2px solid #999";
+    document.getElementById('nft-collected').style.display = "none"
+    document.getElementById('nft-created').style.display = "flex"
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    const account = urlParams.get('account')
+    $.getJSON(Constants.apiUrl, {
+      requestType: 'getAssetsByIssuer',
+      account: account,
+      includeCounts: true
+    },
+    function(result) {
+      const assets = result.assets[0]
+      var imgDiv = ""
+      if (assets.length !== 0) {
+      for (var i = 0; i < assets.length; i++) {
+        const asset = assets[i].asset
+        const isActive = assets[i].numberOfAccounts
+        if (isActive !== 0) {
+          $.getJSON(Constants.apiUrl, {
+            requestType: "getAsset",
+            asset: asset
+          },
+            function(assets) {
+              const metadata = assets.description
+              const metaUrl = metadata.replace("ipfs://", "https://nftstorage.link/ipfs/")
+              $.getJSON(metaUrl,
+                function(getMeta) {
+                  const description = getMeta.description
+                  const image = getMeta.image
+                  const imageUrl = image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+                  const name = getMeta.name
+                  imgDiv += "<div class='nft-card'>"
+                  imgDiv += "<a href=asset.html?asset=" + asset + "><img src='" + imageUrl + "'>"
+                  imgDiv += "<h4>" + name + "</h4></a>"
+                  imgDiv += "</div>"
+                  document.getElementById('nft-created').innerHTML = imgDiv
+  })})}}}})}
+</script>
+</body>
+</html>
+

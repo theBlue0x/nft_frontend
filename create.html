@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
+    <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="Blue0x NFT Marketplace">
+     <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blue0x NFT Marketplace</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-nav-left">
+          <div class="navbar-brand">
+            <img src="img/blue0x.png" alt="Blue0x logo" />
+            <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+          </div>
+        </div>
+
+        <div class="navbar-nav-right">
+          <div class="navbar-search-bar">
+            <span class="material-icons md-24">search</span>
+            <input
+              class="search-bar"
+              type="text"
+              placeholder=" Search items,collections,and accounts"
+            />
+          </div>
+          <div class="navbar-items" id="menu">
+            <div class="navbar-search-bar-hidden menuItem">
+              <span class="material-icons md-24">search</span>
+              <input
+                class="search-bar"
+                type="text"
+                placeholder=" Search items,collections,and accounts"
+              />
+            </div>
+            <ul>
+              <li>
+                <a class="menuItem" href="explore.html">Explore</a>
+              </li>
+              <li>
+                <a class="menuItem" href="create.html">Create</a>
+              </li>
+              <li>
+                <a class="menuItem" href="resources.html">Resources</a>
+              </li>
+              <li>
+                <a class="menuItem" href="faq.html">FAQ</a>
+              </li>
+              <li>
+                <a class="menuItem" href="profile.html"><span class="material-icons-outlined nav-icon">account_circle
+                </span><span class="profile">Profile</span></a>
+              </li>
+              <li>
+                <a class="menuItem" href="wallet_login.html"><span class="material-icons-outlined nav-icon">account_balance_wallet
+                </span><button class="wallet">View Wallet</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Hamburger Menu -->
+      <button type="button" class="hamburger">
+        <i class="menuIcon material-icons nav-icon" id="hamburger">menu</i>
+        <i class="closeIcon material-icons nav-icon" id="close">close</i>
+      </button>
+    </nav>
+
+    <div id="loading">
+        <img id="loading-image" src="./img/loader.gif" alt="Loading..." />
+    </div>
+        
+    <section class="centered">
+      <form id="form" class="upload-form">
+        <h1>Create New NFT</h1>
+        <p style="margin-bottom:16px;"><span class="star">* </span> Required fields </p>
+        <h4>Image, Video, or Audio<span class="star"> *</span></h4>
+        <p><b>File types supported:</b> JPG, JPEG, PNG.</p>
+        <p><b>Recommended:</b> 350px x 350px | <b>Max size:</b> 100 MB</p>
+
+        <div class="form-div">
+          <label for="image">
+            <input type="file" id="image" accept="image/*" onchange="preview_image(event)" style="display:none;" required>
+            <img class="upload-image-card" id="uploadImg" src="img/no-image.png">
+          </label>
+        </div>
+
+        <div class="form-div">
+          <label for="name">Name<span class="star"> *</span></label><br/>
+          <input type="text" autocomplete="rando" id="name" pattern="[a-zA-Z0-9\s]+" placeholder="Item name" required>
+        </div>
+
+        <div class="form-div">
+          <label for="description">Description<span class="star"> *</span></label><br/>
+            <span class="input-help">A detailed description of the item.  The description will be included on the item details page</span><br/>
+            <textarea name="description" rows="4" cols="50" wrap="physical" id="description" pattern="[a-zA-Z0-9\s]+" required></textarea>
+        </div>
+
+        <div class="form-div">
+          <label for="category">Category<span class="star"> *</span></label><br/>
+          <select id="category" name="category" required>
+            <option value="" selected disabled hidden>Choose a category</option>
+            <option value="Art">Art</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Music">Music</option>
+            <option value="Photography">Photography</option>
+            <option value="Sports">Sports</option>
+            <option value="Utility">Utility</option>
+          </select>
+        </div>
+
+        <div class="form-div">
+          <label for="secretPhrase">BLX Account Passphrase<span class="star"> *</span></label><br/>
+            <input type="password" autocomplete="rando" id="secretPhrase" placeholder="Your account secret phrase" required>
+        </div>  
+ 
+        <span id="error" style="color:red;margin-top: 6px;"></span>
+
+        <div class="form-btn">
+          <button class="btn btn-dark" type="submit">Create</button>
+        </div>
+      </form>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="./constants.js"></script>
+    <script>
+      function preview_image(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('uploadImg');
+          output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    </script>
+    <script>
+      const form = document.getElementById("form");
+      form.addEventListener("submit", submitForm);
+      function submitForm(e) {
+        e.preventDefault()
+        document.getElementById("loading").style.display = "flex"
+        const image = document.getElementById("image").files[0]
+        const name = document.getElementById("name").value
+        const description = document.getElementById("description").value
+        const category = document.getElementById("category").value
+        const secretPhrase = document.getElementById("secretPhrase").value
+        const formData = new FormData()
+        formData.append("name", name)
+        formData.append("description", description)
+        formData.append("category", category)
+        formData.append("secretPhrase", secretPhrase)
+        formData.append("file", image)
+        fetch(Constants.uploadAPI, {
+          method: 'POST',
+          body: formData
+        })
+        .then((response) => response.text())
+        .then((text) => {
+          const result = JSON.parse(text)
+          const error = result.errorDescription
+            if (!error) {
+              console.log(result.transaction)
+              window.location.href = './asset.html?asset=' + result.transaction
+          } else {
+            document.getElementById("loading").style.display = "none"
+            document.getElementById('error').innerHTML = error
+          }})}
+    </script>
+  </body>
+</html>

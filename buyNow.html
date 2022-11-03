@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
+    <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="Blue0x NFT Marketplace">
+     <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blue0x NFT Marketplace</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-nav-left">
+          <div class="navbar-brand">
+            <img src="img/blue0x.png" alt="Blue0x logo" />
+            <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+          </div>
+        </div>
+
+        <div class="navbar-nav-right">
+          <div class="navbar-search-bar">
+            <span class="material-icons md-24">search</span>
+            <input
+              class="search-bar"
+              type="text"
+              placeholder=" Search items,collections,and accounts"
+            />
+          </div>
+          <div class="navbar-items" id="menu">
+            <div class="navbar-search-bar-hidden menuItem">
+              <span class="material-icons md-24">search</span>
+              <input
+                class="search-bar"
+                type="text"
+                placeholder=" Search items,collections,and accounts"
+              />
+            </div>
+            <ul>
+              <li>
+                <a class="menuItem" href="explore.html">Explore</a>
+              </li>
+              <li>
+                <a class="menuItem" href="create.html">Create</a>
+              </li>
+              <li>
+                <a class="menuItem" href="resources.html">Resources</a>
+              </li>
+              <li>
+                <a class="menuItem" href="faq.html">FAQ</a>
+              </li>
+              <li>
+                <a class="menuItem" href="profile.html"><span class="material-icons-outlined nav-icon">account_circle
+                </span><span class="profile">Profile</span></a>
+              </li>
+              <li>
+                <a class="menuItem" href="wallet_login.html"><span class="material-icons-outlined nav-icon">account_balance_wallet
+                </span><button class="wallet">View Wallet</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Hamburger Menu -->
+      <button type="button" class="hamburger">
+        <i class="menuIcon material-icons nav-icon" id="hamburger">menu</i>
+        <i class="closeIcon material-icons nav-icon" id="close">close</i>
+      </button>
+    </nav>
+
+    <div id="loading">
+        <img id="loading-image" src="./img/loader.gif" alt="Loading..." />
+    </div>
+        
+    <section class="centered">
+      <form id="form" class="aux-form">
+        <h1>Buy NFT</h1>
+        <p><span class="star">* </span> Required fields </p>
+        <div class="form-div" id="img"></div>
+        <br/>
+        <p>Asset ID: <span id="asset"></span></p>
+        <p>Owned By: <span id="owner"></span></p>
+        <p>Price: <span id="price"></span> <span id="currency"></span> <span style="display:none" id="curCode"></span></p>
+
+        <div class="form-div">
+          <label for="secretPhrase">BLX Account Passphrase<span class="star"> *</span></label><br/>
+          <input type="password" autocomplete="rando" id="secretPhrase" placeholder="Your account secret phrase" required>
+        </div>
+      
+        <span id="error" style="color:red;margin-top: 6px;"></span>
+
+        <div class="form-btn">
+          <button class="btn btn-dark" style="margin-top:-12px" type="submit">Submit</button>
+        </div>
+      </form>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="./constants.js"></script>
+    <script>
+     const queryString = window.location.search
+     const urlParams = new URLSearchParams(queryString)
+     const asset = urlParams.get('asset')
+     document.getElementById("asset").innerHTML = asset
+     $.getJSON(Constants.apiUrl, {
+      requestType: 'getAsset',
+      asset: asset
+    },
+    function(result) {
+      var imgDiv = ""
+      const metadata = result.description
+      const metaUrl = metadata.replace("ipfs://", "https://nftstorage.link/ipfs/")
+      $.getJSON(metaUrl,
+       function(getMeta) {
+        const image = getMeta.image
+        const imageUrl = image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+        imgDiv += "<div class='asset-card'>"
+        imgDiv += "<img src='" + imageUrl + "'>"
+        imgDiv += "</div>"
+        document.getElementById('img').innerHTML = imgDiv
+      })})
+</script>
+<script>
+ $.getJSON(Constants.apiUrl, {
+  requestType: 'getAssetAccounts',
+  asset: asset
+},
+function(result) {
+  const owner = result.accountAssets[0].accountRS
+  document.getElementById('owner').innerHTML = owner
+  $.getJSON(Constants.listAPI + '/' + asset, function(data) {
+    if (owner === data.account) {
+      document.getElementById('price').innerHTML = data.price
+      document.getElementById('currency').innerText = data.currency
+      $.getJSON(Constants.apiUrl, {
+        requestType: "getCurrency",
+        code: data.currency
+      },
+      function(currency){
+        document.getElementById('curCode').innerText = currency.currency
+})}})})
+</script>
+<script>
+const form = document.getElementById("form");
+form.addEventListener("submit", submitForm);
+function submitForm(e) {
+  e.preventDefault()
+  document.getElementById("loading").style.display = "flex"
+  const asset = document.getElementById('asset').innerText
+  const price = document.getElementById('price').innerText
+  const priceF = price * 100
+  const owner = document.getElementById('owner').innerText
+  const cur = document.getElementById('currency').innerText
+  const currency = document.getElementById('curCode').innerText
+  const secretPhrase = document.getElementById('secretPhrase').value
+  $.post(Constants.apiUrl, {
+    requestType: "transferCurrency",
+    recipient: owner,
+    currency: currency,
+    units: priceF,
+    secretPhrase: secretPhrase,
+    feeNQT: 1000000,
+    deadline: 60,
+    broadcast: false
+  },
+  function(result) {
+    const x = JSON.parse(result)
+    console.log(x)
+    const error = x.errorDescription
+      if (!error) {
+      const unsignedBytes = x.unsignedTransactionBytes
+      console.log(unsignedBytes)
+      const fullHash = x.fullHash
+      console.log(fullHash)
+      const sigHash = x.signatureHash
+      console.log(sigHash)
+      const signedBytes = x.transactionBytes
+      console.log(signedBytes)
+      const sender = x.transactionJSON.senderRS
+      console.log(sender)
+      const message = {
+        s: signedBytes
+      }
+      $.post(Constants.apiUrl, {
+          requestType: "encryptTo",
+          recipient: sender,
+          messageToEncrypt: JSON.stringify(message),
+          secretPhrase: secretPhrase
+        },
+        function(result1) {
+          const b = JSON.parse(result1)
+          const encryptedData = b.data
+          const nonce = b.nonce
+          $.post(Constants.bidsAPI, {
+            t: "pendingBuyNow",
+            a: asset,
+            p: price,
+            c: cur,
+            to: owner,
+            from: sender,
+            u: unsignedBytes,
+            f: fullHash,
+            d: encryptedData,
+            n: nonce
+          },
+          function(result2) {
+            window.location.href = './wallet.html?account=' + sender
+          })})
+    } else {
+      document.getElementById("loading").style.display = "none"
+      document.getElementById('error').innerHTML = error
+    }
+})}
+</script>  
+</body>
+</html>

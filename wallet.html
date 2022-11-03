@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
+  <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/css/flag-icons.min.css" integrity="sha512-UwbBNAFoECXUPeDhlKR3zzWU3j8ddKIQQsDOsKhXQGdiB5i3IHEXr9kXx82+gaHigbNKbTDp3VY/G6gZqva6ZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blue0x NFT Marketplace">
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="style.css" />
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <title>Blue0x NFT Marketplace</title>
+  <style>
+    .pages {
+      margin-bottom: 0vh;
+      padding: 5vw 5vw 1vw 5vw;
+    }
+    #notifications a {
+      cursor: pointer;
+      color: cornflowerblue;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-nav-left">
+        <div class="navbar-brand">
+          <img src="img/blue0x.png" alt="Blue0x logo" />
+          <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+        </div>
+      </div>
+
+      <div class="navbar-nav-right">
+        <div class="navbar-search-bar">
+          <span class="material-icons md-24">search</span>
+          <input
+          class="search-bar"
+          type="text"
+          placeholder=" Search items,collections,and accounts"
+          />
+        </div>
+        <div class="navbar-items" id="menu">
+          <div class="navbar-search-bar-hidden menuItem">
+            <span class="material-icons md-24">search</span>
+            <input
+            class="search-bar"
+            type="text"
+            placeholder=" Search items,collections,and accounts"
+            />
+          </div>
+          <ul>
+            <li>
+              <a class="menuItem" href="explore.html">Explore</a>
+            </li>
+            <li>
+              <a class="menuItem" href="create.html">Create</a>
+            </li>
+            <li>
+              <a class="menuItem" href="resources.html">Resources</a>
+            </li>
+            <li>
+              <a class="menuItem" href="faq.html">FAQ</a>
+            </li>
+            <li>
+              <a class="menuItem" href="profile.html"><span class="material-icons-outlined nav-icon">account_circle
+              </span><span class="profile">Profile</span></a>
+            </li>
+            <li>
+              <a class="menuItem" href="wallet_login.html"><span class="material-icons-outlined nav-icon">account_balance_wallet
+              </span><button class="wallet">View Wallet</button></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Hamburger Menu -->
+    <button type="button" class="hamburger">
+      <i class="menuIcon material-icons nav-icon" id="hamburger">menu</i>
+      <i class="closeIcon material-icons nav-icon" id="close">close</i>
+    </button>
+  </nav>
+
+  <section class="pages">
+    <div class="page-heading">
+      <h1 id="heading"></h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="wallet-content" id="declinedBuyNow" style="display:none">
+      <div class="wallet-card">
+        <h3>Declined Purchases</h3>
+        <table class="table" id="bids">
+       <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="declinedBuyNow-body">
+        <tr>
+          <td>None</td>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    <div class="wallet-content" id="pendingBuyNow" style="display:none">
+      <div class="wallet-card">
+        <h3>Pending Purchases</h3>
+        <table class="table" id="bids">
+       <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="pendingBuyNow-body">
+        <tr>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    <div class="wallet-content" id="finalizeSales" style="display:none">
+      <div class="wallet-card">
+        <h3>Sold Items Needing Action</h3>
+        <table class="table" id="bids">
+       <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="finalizeSales-body">
+        <tr>
+          <td>None</td>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+     <div class="wallet-content" id="finalizePurchases" style="display:none">
+      <div class="wallet-card">
+        <h3>Finalize Your Purchase</h3>
+        <table class="table" id="bids">
+       <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="finalizePurchases-body">
+        <tr>
+          <td>None</td>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    <div class="wallet-content">
+      <div class="wallet-card">
+        <h3>BLX Balance</h3>
+        <table class="table-cur">
+        <tbody id="blx-body">
+        <tr>
+          <td class="blx-icon"><img src="./img/favicon.ico"></td>
+          <td id="whole">--</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    <div class="wallet-content">
+     <div class="wallet-card">
+      <h3>Currency Balances</h3>
+      <table class="table-cur">
+      <tbody id="currency-body">
+        <tr>
+          <td>--</td>
+          <td>--</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    <div class="wallet-content">
+     <div class="wallet-card">
+      <h3>Active Bids</h3>
+      <table class="table" id="bids">
+       <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="bids-body">
+        <tr>
+          <td>None</td>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+    
+<div class="wallet-content">
+  <div class="wallet-card">
+    <h3>NFT's Listed</h3>
+    <table class="table" id="bids">
+     <thead>
+      <tr>
+        <th>Asset</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody id="listed-body">
+      <tr>
+        <td>None</td>
+        <td>None</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="wallet-content">
+  <div class="wallet-card">
+  <h3>NFT's Transferred</h3>
+  <table class="table" id="bids">
+   <thead>
+    <tr>
+      <th>Asset</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody id="transfer-body">
+    <tr>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h3>NFT's Created</h3>
+<table class="table" id="table">
+ <thead>
+  <tr>
+    <th>Asset</th>
+    <th>Date</th>
+  </tr>
+</thead>
+<tbody id="created-body">
+  <tr>
+    <td>None</td>
+    <td>None</td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<footer class="margin-bottom"></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="./scripts.js"></script>
+<script src="./constants.js"></script>
+<script>
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  const account = urlParams.get('account')
+  document.getElementById("heading").innerHTML = account
+  $.getJSON(Constants.apiUrl,{
+    requestType: "getAccount",
+    account: account,
+    includeAssets: true,
+    includeCurrencies: true
+  },
+  function (result) {
+    const blxBalance = (result.balanceNQT) / 100000000
+    const balanceFormat = Number(blxBalance).toLocaleString()
+    if (balanceFormat !== "NaN") {
+    document.getElementById('whole').innerHTML = balanceFormat + ' BLX'
+    }
+    let rows = ' ';
+    for (var i = 0; i < result.accountCurrencies.length; i++) {
+      const currency = result.accountCurrencies[i].code
+      const first2 = currency.substring(0,2).toLowerCase()
+      const x = parseFloat(result.accountCurrencies[i].units)
+      const y = (x / 100).toFixed(2)
+      const bal = Number(y).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+      rows += '<tr>'
+      rows += '<td><span class="flag-icon flag-icon-' + first2 + '"></span></td>'
+      rows += '<td>&nbsp;' + currency + ' : </td>'
+      rows += '<td>' + bal + '</td>'
+      rows += '</tr>'
+      $("#currency-body").html(rows)
+  }})
+</script>
+<script>
+  $.getJSON(Constants.bidsAPI, function(data) {
+    var rows;
+    $.each(data, function(key, value) {
+      if (value.from == account && value.t == "pendingBuyNow") {
+        document.getElementById('pendingBuyNow').style.display = "flex"
+        const asset = value.a
+        const price = parseFloat(value.p).toFixed(2)
+        const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        const currency = value.c
+        rows += '<tr>'
+        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows += '</tr>'
+        $("#pendingBuyNow-body").html(rows)
+}})})
+</script>
+<script>
+  $.getJSON(Constants.bidsAPI, function(data) {
+    var rows;
+    $.each(data, function(key, value) {
+      if (value.to == account && value.t == "pendingBuyNow") {
+        document.getElementById('finalizeSales').style.display = "flex"
+        const asset = value.a
+        const price = parseFloat(value.p).toFixed(2)
+        const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        const currency = value.c
+        rows += '<tr>'
+        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows += '<td><a href="./review.html?asset=' + asset + '&bid=' + key + '">Review</a><br/><a href="./cancelBuyNow.html?asset=' + asset + '&bid=' + key + '">Cancel</a></td>'
+        rows += '</tr>'
+        $("#finalizeSales-body").html(rows)
+}})})
+</script>
+<script>
+  $.getJSON(Constants.bidsAPI, function(data) {
+    var rows;
+    $.each(data, function(key, value) {
+      if (value.to == account && value.t == "releasedBuyNow") {
+        document.getElementById('finalizePurchases').style.display = "flex"
+        const asset = value.a
+        const price = parseFloat(value.p).toFixed(2)
+        const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        const currency = value.c
+        rows += '<tr>'
+        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows += '<td><a href="./releaseFunds.html?asset=' + asset + '&bid=' + key + '">Release</a></td>'
+        rows += '</tr>'
+        $("#finalizePurchases-body").html(rows)
+}})})
+</script>
+<script>
+  $.getJSON(Constants.bidsAPI, function(data) {
+    var rows;
+    $.each(data, function(key, value) {
+      if (value.from == account && value.t == "activeBid") {
+        const asset = value.a
+        const price = parseFloat(value.p).toFixed(2)
+        const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        const currency = value.c
+        rows += '<tr>'
+        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows += '<td><a href="./cancelBid.html?asset=' + asset + '&bid=' + key + '">Cancel</a></td>'
+        rows += '</tr>'
+        $("#bids-body").html(rows)
+}})})
+</script>
+<script>
+  $.getJSON(Constants.listAPI, function(data) {
+    var rows;
+    $.each(data, function(key, value) {
+      if (value.account == account) {
+        const asset = key
+        const price = parseFloat(value.price).toFixed(2)
+        const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        const currency = value.currency
+        rows += '<tr>'
+        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows += '</tr>'
+        $("#listed-body").html(rows)
+}})})
+</script>
+<script>
+  $.getJSON(Constants.apiUrl,{
+    requestType: "getAssetTransfers",
+    account: account
+  },
+  function(data1) {
+    var rows;
+      for (var i = 0; i < data1.transfers.length; i++) {
+        const transfers = data1.transfers[i]
+        const asset = transfers.asset
+        const sender = transfers.senderRS
+        const timestamp = parseInt(transfers.timestamp)
+        const blxTimestamp = parseInt(Constants.blxTimestamp)
+        const assetTime = blxTimestamp + timestamp
+        const date = new Date(assetTime * 1000);
+        rows += '<tr>'
+        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows += '<td>' + date.toLocaleDateString() + '</td>'
+        rows += '</tr>'
+        $("#transfer-body").html(rows)
+  }})
+</script>
+<script>
+  $.getJSON(Constants.apiUrl,{
+    requestType: "getAssetsByIssuer",
+    account: account
+  },
+  function(c) {
+    const a = c.assets[0]
+    var rows;
+      for (var i = 0; i < a.length; i++) {
+        const created = a[i]
+        const asset = created.asset
+        $.getJSON(Constants.apiUrl, {
+            requestType: 'getAssetHistory',
+            asset: asset
+          },
+          function(result) {
+            const transaction = result.assetHistory[0]
+            const timestamp = parseInt(transaction.timestamp)
+            const blxTimestamp = parseInt(Constants.blxTimestamp)
+            const assetTime = blxTimestamp + timestamp
+            const date = new Date(assetTime * 1000);
+            rows += '<tr>'
+            rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+            rows += '<td>' + date.toLocaleDateString() + '</td>'
+            rows += '</tr>'
+            $("#created-body").html(rows)
+ }) }})
+</script>
+<script>
+  $.getJSON(Constants.cancelBidAPI, function(data) {
+    var rows;
+    $.each(data, function(key, value) {
+      if (value.b == account) {
+        document.getElementById('declinedBuyNow').style.display = "flex"
+        const asset = value.a
+        const price = parseFloat(value.p).toFixed(2)
+        const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        const currency = value.c
+        rows += '<tr>'
+        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows += '<td><a href="./deleteCancelledBid.html?asset=' + asset + '&bid=' + key + '">View</a></td>'
+        rows += '</tr>'
+        $("#declinedBuyNow-body").html(rows)
+}})})
+</script>
+</body>
+</html>

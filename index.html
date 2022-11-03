@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
+    <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="Blue0x NFT Marketplace">
+     <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blue0x NFT Marketplace</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-nav-left">
+          <div class="navbar-brand">
+            <img src="img/blue0x.png" alt="Blue0x logo" />
+            <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+          </div>
+        </div>
+
+        <div class="navbar-nav-right">
+          <div class="navbar-search-bar">
+            <span class="material-icons md-24">search</span>
+            <input
+              class="search-bar"
+              type="text"
+              placeholder=" Search items,collections,and accounts"
+            />
+          </div>
+          <div class="navbar-items" id="menu">
+            <div class="navbar-search-bar-hidden menuItem">
+              <span class="material-icons md-24">search</span>
+              <input
+                class="search-bar"
+                type="text"
+                placeholder=" Search items,collections,and accounts"
+              />
+            </div>
+            <ul>
+              <li>
+                <a class="menuItem" href="explore.html">Explore</a>
+              </li>
+              <li>
+                <a class="menuItem" href="create.html">Create</a>
+              </li>
+              <li>
+                <a class="menuItem" href="resources.html">Resources</a>
+              </li>
+              <li>
+                <a class="menuItem" href="faq.html">FAQ</a>
+              </li>
+              <li>
+                <a class="menuItem" href="profile.html"><span class="material-icons-outlined nav-icon">account_circle
+                </span><span class="profile">Profile</span></a>
+              </li>
+              <li>
+                <a class="menuItem" href="wallet_login.html"><span class="material-icons-outlined nav-icon">account_balance_wallet
+                </span><button class="wallet">View Wallet</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Hamburger Menu -->
+      <button type="button" class="hamburger">
+        <i class="menuIcon material-icons nav-icon" id="hamburger">menu</i>
+        <i class="closeIcon material-icons nav-icon" id="close">close</i>
+      </button>
+    </nav>
+    <section class="section-1">
+      <div class="heading-container">
+        <div class="heading">
+          <h1>Buy, sell, and create exclusive digital content</h1>
+        </div>
+        <div class="sub-heading">
+          <h5>The fastest growing NFT marketplace</h5>
+        </div>
+        <div class="btn-container">
+          <a href="explore.html" class="btn btn-dark" >Explore</a>
+          <a href="create.html" class="btn btn-light">Create</a>
+        </div>
+      </div>
+      <div class="img-container">
+        <img src="img/section.png" class="section-1-img" alt="nft" />
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="social">
+        <h3><a href="https://learn.blue0x.com">Learn more</a> about the Blue0x Network</h3>
+        <h3>Questions? Chat with us on <a href="https://discord.gg/EbBWRSPW63">Discord!</a></h3>
+      </div>
+    </footer>
+
+    <script src="./scripts.js"></script>
+  </body>
+</html>

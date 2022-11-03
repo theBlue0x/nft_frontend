@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Poppins:wght@100;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
+    <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="Blue0x NFT Marketplace">
+     <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blue0x NFT Marketplace</title>
+    <style>
+    #balanceVerified p {
+    	display: inline-block;
+    	font-size: 16px;
+    }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-nav-left">
+          <div class="navbar-brand">
+            <img src="img/blue0x.png" alt="Blue0x logo" />
+            <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+          </div>
+        </div>
+
+        <div class="navbar-nav-right">
+          <div class="navbar-search-bar">
+            <span class="material-icons md-24">search</span>
+            <input
+              class="search-bar"
+              type="text"
+              placeholder=" Search items,collections,and accounts"
+            />
+          </div>
+          <div class="navbar-items" id="menu">
+            <div class="navbar-search-bar-hidden menuItem">
+              <span class="material-icons md-24">search</span>
+              <input
+                class="search-bar"
+                type="text"
+                placeholder=" Search items,collections,and accounts"
+              />
+            </div>
+            <ul>
+              <li>
+                <a class="menuItem" href="explore.html">Explore</a>
+              </li>
+              <li>
+                <a class="menuItem" href="create.html">Create</a>
+              </li>
+              <li>
+                <a class="menuItem" href="resources.html">Resources</a>
+              </li>
+              <li>
+                <a class="menuItem" href="faq.html">FAQ</a>
+              </li>
+              <li>
+                <a class="menuItem" href="profile.html"><span class="material-icons-outlined nav-icon">account_circle
+                </span><span class="profile">Profile</span></a>
+              </li>
+              <li>
+                <a class="menuItem" href="wallet_login.html"><span class="material-icons-outlined nav-icon">account_balance_wallet
+                </span><button class="wallet">View Wallet</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Hamburger Menu -->
+      <button type="button" class="hamburger">
+        <i class="menuIcon material-icons nav-icon" id="hamburger">menu</i>
+        <i class="closeIcon material-icons nav-icon" id="close">close</i>
+      </button>
+    </nav>
+
+    <div id="loading">
+        <img id="loading-image" src="./img/loader.gif" alt="Loading..." />
+    </div>
+        
+    <section class="centered">
+      <form id="form" class="upload-form">
+        <h1>View Declined Bid</h1>
+        <p><span class="star">* </span> Required fields </p>
+        <div class="form-div" id="img"></div>
+        <br/>
+        <p><b>Asset ID :</b> <span id="asset"></span></p>
+        <p><b>Owned By :</b> <span id="owner"></span></p>
+        <div class="form-div">
+          <label>Bidder:</label>
+          <span id="bidder"></span><br/>
+          <label>Price:</label>
+           <span id="price"></span> <span id="currency"></span><br/>
+        </div>
+
+        <div class="form-div">
+          <label for="secretPhrase">BLX Account Passphrase<span class="star"> *</span></label><br/>
+          <input type="password" autocomplete="rando" id="secretPhrase" placeholder="Your account secret phrase" required>
+        </div>
+
+        <span id="error" style="color:red;margin-top: 6px;"></span>
+      
+        <div class="form-btn">
+          <button class="btn btn-dark" style="margin-top:-15px" type="submit">Delete Bid</button>
+        </div>
+      </form>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="./constants.js"></script>
+    <script>
+     const queryString = window.location.search
+     const urlParams = new URLSearchParams(queryString)
+     const asset = urlParams.get('asset')
+     document.getElementById("asset").innerHTML = asset
+     $.getJSON(Constants.apiUrl, {
+      requestType: 'getAsset',
+      asset: asset
+    },
+    function(result) {
+      var imgDiv = ""
+      const metadata = result.description
+      const metaUrl = metadata.replace("ipfs://", "https://nftstorage.link/ipfs/")
+      $.getJSON(metaUrl,
+       function(getMeta) {
+        const image = getMeta.image
+        const imageUrl = image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+        imgDiv += "<div class='asset-card'>"
+        imgDiv += "<img src='" + imageUrl + "'>"
+        imgDiv += "</div>"
+        document.getElementById('img').innerHTML = imgDiv
+      })})
+</script>
+<script>
+ $.getJSON(Constants.apiUrl, {
+  requestType: 'getAssetAccounts',
+  asset: asset
+},
+function(result) {
+  const owner = result.accountAssets[0].accountRS
+  document.getElementById('owner').innerHTML = owner
+  })
+</script>
+<script>
+const bid = urlParams.get('bid')
+$.getJSON(Constants.cancelBidAPI, function(data) {
+  $.each(data, function(key, value) {
+    if (key === bid) {
+      const bidder = value.b
+      const price = value.p
+      const currency = value.c
+      document.getElementById('bidder').innerText = bidder
+      document.getElementById('price').innerText = price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+      document.getElementById('currency').innerText = currency
+}})})
+</script>
+<script>
+const form = document.getElementById("form");
+form.addEventListener("submit", submitForm);
+function submitForm(e) {
+  e.preventDefault()
+  document.getElementById("loading").style.display = "flex"
+  const bid = urlParams.get('bid')
+  const bidder = document.getElementById('bidder').innerText
+  const secretPhrase = document.getElementById('secretPhrase').value
+  $.post(Constants.deleteCancelledBidAPI, {
+    u: bid,
+    b: bidder,
+    secretPhrase: secretPhrase
+  },
+  function(result) {
+    if (result !== "Incorrect passphrase") {
+       window.location.href = './wallet.html?account=' + result
+    } else {
+      document.getElementById("loading").style.display = "none"
+      document.getElementById('error').innerHTML = "Incorrect passphrase"
+}})}
+</script>
+</body>
+</html>
