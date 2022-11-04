@@ -50,7 +50,7 @@ var Constants = (function(Constants, $, undefined) {
   Constants.rubxContract = '0xFb9703375bEA7C1B636Ac074b238ee38C7188BC2'
   Constants.rubxLockWallet = 'BLX-FLLY-DRG6-TUDB-ESVU2'
 
-  Constants.uploadAPI = '/upload'
+  Constants.uploadAPI = 'https://app.blue0x.com/upload'
   // Constants.mintAPI = 'https://app.blue0x.com/mint'
   // Constants.burnAPI = 'https://app.blue0x.com/burn'
   // Constants.supplyAPI = 'https://app.blue0x.com/supply' // Audit supply API
