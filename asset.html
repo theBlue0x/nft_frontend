@@ -306,7 +306,7 @@ function(result) {
   setTimeout(function () {
   $.getJSON(Constants.bidsAPI, function(data) {
     $.each(data, function(key, value) {
-      if (value.a === asset && value.t === 'pendingBuyNow' || value.t === "releasedBuyNow") {
+      if (value.a === asset && (value.t === 'pendingBuyNow' || value.t === "releasedBuyNow")) {
         document.getElementById('buyBtn').style.display = "none"
         document.getElementById('priceEdit').style.display = "none"
         document.getElementById('pendingBtn').style.display = "block"
