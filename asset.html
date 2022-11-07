@@ -239,7 +239,7 @@ function(result) {
         rows += '<td><a href="./acceptBid.html?asset=' + asset + '&bid=' + key + '">Accept</a></td>'
         rows += '</tr>'
         $("#bids-body").html(rows)
-}})})},600)
+}})})},500)
 </script>
 <script>
  $.getJSON(Constants.apiUrl, {
@@ -306,13 +306,14 @@ function(result) {
   setTimeout(function () {
   $.getJSON(Constants.bidsAPI, function(data) {
     $.each(data, function(key, value) {
-      if (value.a === asset && (value.t === 'pendingBuyNow' || value.t === "releasedBuyNow")) {
+      const asset1 = value.a
+      if (asset1 == asset && (value.t == 'pendingBuyNow' || value.t == "releasedBuyNow")) {
         document.getElementById('buyBtn').style.display = "none"
         document.getElementById('priceEdit').style.display = "none"
         document.getElementById('pendingBtn').style.display = "block"
         document.getElementById('pendingSaleHeading').style.display = "flex"
 
-}})})},600)
+}})})},510)
 </script>
 </body>
 </html>

@@ -141,13 +141,11 @@
        <thead>
         <tr>
           <th>Asset</th>
-          <th>Price</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody id="finalizeSales-body">
         <tr>
-          <td>None</td>
           <td>None</td>
           <td>None</td>
         </tr>
@@ -163,13 +161,11 @@
        <thead>
         <tr>
           <th>Asset</th>
-          <th>Price</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody id="finalizePurchases-body">
         <tr>
-          <td>None</td>
           <td>None</td>
           <td>None</td>
         </tr>
@@ -351,7 +347,6 @@
         const currency = value.c
         rows += '<tr>'
         rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
-        rows += '<td>' + priceF  + ' '+ currency + '</td>'
         rows += '<td><a href="./review.html?asset=' + asset + '&bid=' + key + '">Review</a><br/><a href="./cancelBuyNow.html?asset=' + asset + '&bid=' + key + '">Cancel</a></td>'
         rows += '</tr>'
         $("#finalizeSales-body").html(rows)
@@ -369,7 +364,6 @@
         const currency = value.c
         rows += '<tr>'
         rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
-        rows += '<td>' + priceF  + ' '+ currency + '</td>'
         rows += '<td><a href="./releaseFunds.html?asset=' + asset + '&bid=' + key + '">Release</a></td>'
         rows += '</tr>'
         $("#finalizePurchases-body").html(rows)
@@ -401,12 +395,19 @@
         const price = parseFloat(value.price).toFixed(2)
         const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
         const currency = value.currency
-        rows += '<tr>'
-        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
-        rows += '<td>' + priceF  + ' '+ currency + '</td>'
-        rows += '</tr>'
-        $("#listed-body").html(rows)
-}})})
+        $.getJSON(Constants.apiUrl,{
+          requestType: "getAssetAccounts",
+          asset: asset
+        },
+        function(result){
+        const ownedBy = result.accountAssets[0].accountRS
+        if(ownedBy == value.account){
+          rows += '<tr>'
+          rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+          rows += '<td>' + priceF  + ' '+ currency + '</td>'
+          rows += '</tr>'
+          $("#listed-body").html(rows)
+}})}})})
 </script>
 <script>
   $.getJSON(Constants.apiUrl,{

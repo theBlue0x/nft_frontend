@@ -50,12 +50,14 @@ var Constants = (function(Constants, $, undefined) {
   Constants.rubxContract = '0xFb9703375bEA7C1B636Ac074b238ee38C7188BC2'
   Constants.rubxLockWallet = 'BLX-FLLY-DRG6-TUDB-ESVU2'
 
-  Constants.uploadAPI = 'https://app.blue0x.com/upload'
-  // Constants.mintAPI = 'https://app.blue0x.com/mint'
-  // Constants.burnAPI = 'https://app.blue0x.com/burn'
-  // Constants.supplyAPI = 'https://app.blue0x.com/supply' // Audit supply API
-  // Constants.gasAPI = 'https://gasstation-mumbai.matic.today/v2' // Gas fee from Polygon Gas Station
   Constants.apiUrl = 'https://testnet.blue0x.com/nxt'; // Testnet Node
+
+  //Constants.mintAPI = 'https://app.blue0x.com/mint'
+  //Constants.burnAPI = 'https://app.blue0x.com/burn'
+  //Constants.supplyAPI = 'https://app.blue0x.com/supply' // Audit supply API
+  //Constants.gasAPI = 'https://gasstation-mumbai.matic.today/v2' // Gas fee from Polygon Gas Station
+
+  Constants.uploadAPI = 'https://app.blue0x.com/upload'
   Constants.profileAPI = 'https://app.blue0x.com/profile'
   Constants.listAPI = 'https://app.blue0x.com/list'
   Constants.delistAPI = 'https://app.blue0x.com/delist'

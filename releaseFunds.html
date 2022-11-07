@@ -198,16 +198,18 @@ function submitForm(e) {
   },
   function(result) {
     const x = JSON.parse(result)
-    const message = JSON.parse(x.decryptedMessage)
     const error = x.errorDescription
-    const signedBytes = message.s
     if (!error) {
+      const message = JSON.parse(x.decryptedMessage)
+      const signedBytes = message.s
     	$.post(Constants.apiUrl,{
     		requestType: "broadcastTransaction",
     		transactionBytes: signedBytes
     	},
     	function(result1){
-    		if(!error){
+        const y = JSON.parse(result1)
+        const error1 = y.errorDescription
+    		if(!error1){
     			$.post(Constants.deleteBidAPI, {
     				u: bid,
 			    	b: recipient,
@@ -222,7 +224,7 @@ function submitForm(e) {
 			}})
     } else {
       document.getElementById("loading").style.display = "none"
-      document.getElementById('error').innerHTML = error
+      document.getElementById('error').innerHTML = "Incorrect passphrase"
 }})}
 </script>
 </body>
