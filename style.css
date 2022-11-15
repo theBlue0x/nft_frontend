@@ -332,21 +332,18 @@ button.wallet {
 }
 
 .browse-card {
-  border: 1px solid #707a83;
-  border-radius: 15px;
   cursor: pointer;
   margin: 18px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.browse-card:hover {
+.browse-card img:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .browse-card img {
   width: 350px;
   height: 220px;
-  border-radius: 15px 15px 0 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .browse-card h4 {
@@ -354,39 +351,36 @@ button.wallet {
   margin: 12px;
   margin-top: 6px;
   font-weight: normal;
+  font-size: 18px;
 }
 
 /* Explore Category Gallery*/
 .nft-card-explore {
-  border: 1px solid #707a83;
-  border-radius: 15px;
   cursor: pointer;
   margin: 20px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.nft-card-explore:hover {
+.nft-card-explore img:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .nft-card-explore img {
   width: 350px;
   height: 350px;
-  border-radius: 15px 15px 0 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .nft-card-explore h4 {
   text-align: center;
-  margin: 16px;
-  margin-top: 9px;
+  margin: 12px;
+  margin-top: 10px;
   font-weight: normal;
-  color: #2b2c2c;
+  font-size: 18px;
 }
 
 /* Resources page */
 .help-card {
-  border: 1px solid #c3c3c3;
-  border-radius: 15px;
+  border: 1px solid #d3d3d3;
   cursor: pointer;
   margin: 20px;
 }
@@ -398,14 +392,12 @@ button.wallet {
 .help-card img {
   width: 350px;
   height: 220px;
-  border-radius: 15px 15px 0 0;
-  border-bottom: 0.5px solid #dfdfdf;
 }
 
 .help-card h4 {
   text-align: center;
-  margin: 16px;
-  margin-top: 9px;
+  margin: 12px;
+  margin-top: 8px;
   font-weight: normal;
 }
 
@@ -938,6 +930,7 @@ tbody td {
     height: 4.5rem;
     display: flex;
     justify-content: space-between;
+    padding: 12px 20px 12px 20px;
   }
 
   .img-container {
@@ -953,7 +946,6 @@ tbody td {
   .help-card img {
     width: 300px;
     height: 189px;
-    border-radius: 15px 15px 0 0;
   }
 
   .profile-info img {
@@ -965,7 +957,6 @@ tbody td {
   .nft-card img {
     width: 275px;
     height: 275px;
-    border-radius: 15px 15px 0 0;
   }
 
   .nft-card-explore img {
@@ -1007,7 +998,7 @@ tbody td {
   .section-1 {
     flex-direction: column;
     text-align: center;
-    padding: 0vw 5vw 8vw 6vw;
+    padding: 0vw 5vw 8vw 5vw;
     margin-top: 10vh;
   }
 
