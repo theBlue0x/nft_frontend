@@ -198,7 +198,7 @@ button.wallet {
 .sub-heading {
   font-family: "Baloo Paaji 2", sans-serif;
   font-size: 2rem;
-  margin-bottom: 3vh;
+  margin-bottom: 5vh;
   color: #707a83;
 }
 
@@ -892,7 +892,7 @@ tbody td {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 920px) {
   .btn {
     width: 9.25rem;
   }
@@ -938,6 +938,11 @@ tbody td {
     height: 4.5rem;
     display: flex;
     justify-content: space-between;
+  }
+
+  .img-container {
+    width: 325px;
+    box-shadow: none;
   }
 
   .browse-card img {
@@ -1012,23 +1017,27 @@ tbody td {
   }
 
   .heading-container {
-    display: flex;
     align-items: center;
-    margin-bottom: 10vh;
+    margin: 2rem;
+    margin-bottom: 3.6rem;
   }
 
   .heading {
-    font-size: 1rem;
+    font-size: 1.5rem;
     align-self: center;
   }
 
   .sub-heading {
     font-size: 1.25rem;
-    margin-bottom: 5vh;
+    margin-bottom: 3vh;
   }
 
   .btn-container {
     margin-bottom: 0vh;
+  }
+
+  .footer {
+    margin-top: 20px;
   }
 
   .social h3 {
@@ -1045,7 +1054,22 @@ tbody td {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1300px) {
+@media (min-width: 800px) and (max-width: 920px) {
+  .heading {
+    font-size: 2rem;
+  }
+
+  .sub-heading {
+    font-size: 2rem;
+  }
+
+  .img-container {
+    width: 600px;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 920px) and (max-width: 1300px) {
   .hamburger {
     display: block;
   }
@@ -1077,7 +1101,7 @@ tbody td {
   .navbar {
     height: 4.5rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
   }
 
   span.material-icons-outlined.nav-icon {
@@ -1090,13 +1114,13 @@ tbody td {
   }
 
   .heading {
-    font-size: 1.25rem;
+    font-size: 1.85rem;
     align-self: center;
   }
 
   .sub-heading {
-    font-size: 1.25rem;
-    margin-bottom: 5vh;
+    font-size: 2rem;
+    margin-bottom: 3vh;
   }
 
   button.wallet {
@@ -1116,15 +1140,6 @@ tbody td {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1180px) {
-  .navbar-search-bar {
-    width: 90%;
-  }
-
-  .navbar-nav-left {
-    margin-left: -10%;
-  }
-}
 
 
 
