@@ -320,7 +320,11 @@
 </script>
 <script>
   $.getJSON(Constants.bidsAPI, function(data) {
-    var rows;
+    var rows
+    var rows1
+    var rows2
+    var rows3
+    var rows4
     $.each(data, function(key, value) {
       if (value.from == account && value.t == "pendingBuyNow") {
         document.getElementById('pendingBuyNow').style.display = "flex"
@@ -333,57 +337,42 @@
         rows += '<td>' + priceF  + ' '+ currency + '</td>'
         rows += '</tr>'
         $("#pendingBuyNow-body").html(rows)
-}})})
-</script>
-<script>
-  $.getJSON(Constants.bidsAPI, function(data) {
-    var rows;
-    $.each(data, function(key, value) {
+}
       if (value.to == account && value.t == "pendingBuyNow") {
         document.getElementById('finalizeSales').style.display = "flex"
         const asset = value.a
         const price = parseFloat(value.p).toFixed(2)
         const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
         const currency = value.c
-        rows += '<tr>'
-        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
-        rows += '<td><a href="./review.html?asset=' + asset + '&bid=' + key + '">Review</a><br/><a href="./cancelBuyNow.html?asset=' + asset + '&bid=' + key + '">Cancel</a></td>'
-        rows += '</tr>'
-        $("#finalizeSales-body").html(rows)
-}})})
-</script>
-<script>
-  $.getJSON(Constants.bidsAPI, function(data) {
-    var rows;
-    $.each(data, function(key, value) {
+        rows1 += '<tr>'
+        rows1 += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows1 += '<td><a href="./review.html?asset=' + asset + '&bid=' + key + '">Review</a><br/><a href="./cancelBuyNow.html?asset=' + asset + '&bid=' + key + '">Cancel</a></td>'
+        rows1 += '</tr>'
+        $("#finalizeSales-body").html(rows1)
+}
       if (value.to == account && value.t == "releasedBuyNow") {
         document.getElementById('finalizePurchases').style.display = "flex"
         const asset = value.a
         const price = parseFloat(value.p).toFixed(2)
         const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
         const currency = value.c
-        rows += '<tr>'
-        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
-        rows += '<td><a href="./releaseFunds.html?asset=' + asset + '&bid=' + key + '">Release</a></td>'
-        rows += '</tr>'
-        $("#finalizePurchases-body").html(rows)
-}})})
-</script>
-<script>
-  $.getJSON(Constants.bidsAPI, function(data) {
-    var rows;
-    $.each(data, function(key, value) {
+        rows2 += '<tr>'
+        rows2 += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows2 += '<td><a href="./releaseFunds.html?asset=' + asset + '&bid=' + key + '">Release</a></td>'
+        rows2 += '</tr>'
+        $("#finalizePurchases-body").html(rows2)
+}
       if (value.from == account && value.t == "activeBid") {
         const asset = value.a
         const price = parseFloat(value.p).toFixed(2)
         const priceF = Number(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
         const currency = value.c
-        rows += '<tr>'
-        rows += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
-        rows += '<td>' + priceF  + ' '+ currency + '</td>'
-        rows += '<td><a href="./cancelBid.html?asset=' + asset + '&bid=' + key + '">Cancel</a></td>'
-        rows += '</tr>'
-        $("#bids-body").html(rows)
+        rows3 += '<tr>'
+        rows3 += '<td><a href="./asset.html?asset=' + asset + '">' + asset + '</a></td>'
+        rows3 += '<td>' + priceF  + ' '+ currency + '</td>'
+        rows3 += '<td><a href="./cancelBid.html?asset=' + asset + '&bid=' + key + '">Cancel</a></td>'
+        rows3 += '</tr>'
+        $("#bids-body").html(rows3)
 }})})
 </script>
 <script>
