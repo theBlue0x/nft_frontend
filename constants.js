@@ -57,14 +57,14 @@ var Constants = (function(Constants, $, undefined) {
   //Constants.supplyAPI = 'https://app.blue0x.com/supply' // Audit supply API
   //Constants.gasAPI = 'https://gasstation-mumbai.matic.today/v2' // Gas fee from Polygon Gas Station
 
-  Constants.uploadAPI = 'https://app.blue0x.com/upload'
-  Constants.profileAPI = 'https://app.blue0x.com/profile'
-  Constants.listAPI = 'https://app.blue0x.com/list'
-  Constants.delistAPI = 'https://app.blue0x.com/delist'
-  Constants.bidsAPI = 'https://app.blue0x.com/bids'
-  Constants.deleteBidAPI = 'https://app.blue0x.com/deleteBid'
-  Constants.cancelBidAPI = 'https://app.blue0x.com/cancelBid'
-  Constants.deleteCancelledBidAPI = 'https://app.blue0x.com/deleteCancelledBid'
+  Constants.uploadAPI = '/upload'
+  Constants.profileAPI = '/profile'
+  Constants.listAPI = '/list'
+  Constants.delistAPI = '/delist'
+  Constants.bidsAPI = '/bids'
+  Constants.deleteBidAPI = '/deleteBid'
+  Constants.cancelBidAPI = '/cancelBid'
+  Constants.deleteCancelledBidAPI = '/deleteCancelledBid'
 
   return Constants;
 

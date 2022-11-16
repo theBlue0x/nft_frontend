@@ -528,21 +528,18 @@ button.wallet {
 }
 
 .nft-card {
-  border: 1px solid #707a83;
-  border-radius: 15px;
   cursor: pointer;
   margin: 20px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.nft-card:hover {
+.nft-card img:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .nft-card img {
   width: 350px;
   height: 350px;
-  border-radius: 15px 15px 0 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .nft-card h4 {
@@ -551,6 +548,7 @@ button.wallet {
   margin-top: 9px;
   font-weight: normal;
   color: #2b2c2c;
+  font-size: 18px;
 }
 
 .nft-card-none {

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined">
     <meta charset="UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta name="description" content="Blue0x NFT Marketplace">
+     <meta name="description" content="Blue0x Marketplace">
      <link rel="shortcut icon" href="./img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="style.css" />
@@ -18,27 +18,26 @@
         <div class="navbar-nav-left">
           <div class="navbar-brand">
             <img src="img/blue0x.png" alt="Blue0x logo" />
-            <a href="index.html"><p class="logo">Blue0x<span> NFT</span></p></a>
+            <a href="index.html"><p class="logo">Blue0x<span> Market</span></p></a>
           </div>
         </div>
 
         <div class="navbar-nav-right">
           <div class="navbar-search-bar">
             <span class="material-icons md-24">search</span>
-            <input id="search" class="search-bar" type="text" placeholder=" Search NFT's and accounts"/>
-
+            <input id="search" class="search-bar" type="text" placeholder=" Search items and accounts" />
           </div>
           <div class="navbar-items" id="menu">
             <div class="navbar-search-bar-hidden menuItem">
               <span class="material-icons md-24">search</span>
-              <input id="search1" class="search-bar" type="text" placeholder=" Search NFT's and accounts"/>
+              <input id="search1" class="search-bar" type="text" placeholder=" Search items and accounts"/>
             </div>
             <ul>
               <li>
-                <a class="menuItem" href="explore.html">Explore</a>
+                <a class="menuItem" href="categories.html">Browse</a>
               </li>
               <li>
-                <a class="menuItem" href="create.html">Create</a>
+                <a class="menuItem" href="create.html">Sell</a>
               </li>
               <li>
                 <a class="menuItem" href="resources.html">Resources</a>
@@ -66,11 +65,11 @@
     </nav>
     <section class="pages">
       <div class="page-heading">
-        <h1 id="category"></h1>
+        <h1 id="query"></h1>
       </div>
     </section>
     <section class="browse-content" id="nft-section">
-    	<div class='nft-card-none' id="none"><h4>No items listed in this category.</h4></div>
+    	<div class='nft-card-none' id="none"><h4>No items listed.</h4></div>
     </section>
 
     <footer class="margin-bottom"></footer>
@@ -79,42 +78,49 @@
 <script src="./scripts.js"></script>
 <script src="./constants.js"></script>
 <script>
-	var imgDiv = ""
-    const queryString = window.location.search
-    const urlParams = new URLSearchParams(queryString)
-    const category = urlParams.get('category')
-    document.getElementById("category").innerHTML = 'Explore ' + category + ' NFTs'
-    $.getJSON(Constants.apiUrl, {
-      requestType: 'getAllAssets',
-      includeCounts: true
-    },
-    function(result) {
-      const assets = result.assets
-      for (var i = 0; i < assets.length; i++) {
-        const asset = assets[i].asset
-        const isActive = assets[i].numberOfAccounts
-        if (isActive !== 0) {
-          $.getJSON(Constants.apiUrl, {
-            requestType: "getAsset",
-            asset: asset
-          },
-            function(assets) {
-              const metadata = assets.description
-              const metaUrl = metadata.replace("ipfs://", "https://nftstorage.link/ipfs/")
-              $.getJSON(metaUrl,
-                function(getMeta) {
-                  const assetCategory = getMeta.category
-                  if (assetCategory == category) {
-                  const description = getMeta.description
-                  const image = getMeta.image
-                  const imageUrl = image.replace("ipfs://", "https://nftstorage.link/ipfs/")
-                  const name = getMeta.name
-                  imgDiv += "<div class='nft-card-explore'>"
-                  imgDiv += "<a href=asset.html?asset=" + asset + "><img src='" + imageUrl + "'>"
-                  imgDiv += "<h4>" + name + "</h4></a>"
-                  imgDiv += "</div>"
-                  document.getElementById('nft-section').innerHTML = imgDiv 
+var imgDiv = ""
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
+const query = urlParams.get('query')
+const q = query.toLowerCase()
+const isAccount = query.startsWith("BLX-")
+document.getElementById("query").innerHTML = 'Searching ' + query
+if (isAccount === false ) {
+  $.getJSON(Constants.apiUrl, {
+    requestType: 'getAllAssets',
+    includeCounts: true
+  },
+  function(result) {
+    const assets = result.assets
+    for (var i = 0; i < assets.length; i++) {
+      const asset = assets[i].asset
+      const isActive = assets[i].numberOfAccounts
+      if (isActive !== 0) {
+        $.getJSON(Constants.apiUrl, {
+          requestType: "getAsset",
+          asset: asset
+        },
+          function(assets) {
+            const metadata = assets.description
+            const metaUrl = metadata.replace("ipfs://", "https://nftstorage.link/ipfs/")
+            $.getJSON(metaUrl,
+              function(getMeta) {
+                const description = getMeta.description
+                const d = description.toLowerCase()
+                const image = getMeta.image
+                const imageUrl = image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+                const name = getMeta.name
+                const n = name.toLowerCase()
+                if (n.indexOf(q) != -1 || d.indexOf(q) != -1) {
+                imgDiv += "<div class='nft-card-explore'>"
+                imgDiv += "<a href=asset.html?asset=" + asset + "><img src='" + imageUrl + "'>"
+                imgDiv += "<h4>" + name + "</h4></a>"
+                imgDiv += "</div>"
+                document.getElementById('nft-section').innerHTML = imgDiv 
   }})})}}})
+} else {
+  window.location.href = "./user_profile.html?account=" + query
+}
 </script>
 </body>
 </html>
